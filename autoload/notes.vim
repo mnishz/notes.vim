@@ -1,4 +1,5 @@
-let g:notes#FileDir = empty($XDG_DATA_HOME) ? expand('~/.local/share/notes') : $XDG_DATA_HOME
+let s:DataHome = empty($XDG_DATA_HOME) ? '~/.local/share' : $XDG_DATA_HOME
+let g:notes#FileDir = expand(s:DataHome . '/notes')
 
 function! notes#CreateNote(fileName) abort
   if !isdirectory(g:notes#FileDir) | call mkdir(g:notes#FileDir, 'p') | endif
