@@ -1,8 +1,8 @@
-let s:FileDir = empty($XDG_DATA_HOME) ? expand('~/.local/share/notes') : $XDG_DATA_HOME
+let g:notes#FileDir = empty($XDG_DATA_HOME) ? expand('~/.local/share/notes') : $XDG_DATA_HOME
 
 function! notes#CreateNote(fileName) abort
-  if !isdirectory(s:FileDir) | call mkdir(s:FileDir, 'p') | endif
-  let l:newFile = s:FileDir . '/' . strftime('%Y%m%d_%H%M%S_') . a:fileName . '.txt'
+  if !isdirectory(g:notes#FileDir) | call mkdir(g:notes#FileDir, 'p') | endif
+  let l:newFile = g:notes#FileDir . '/' . strftime('%Y%m%d_%H%M%S_') . a:fileName . '.txt'
   if empty(getbufinfo('')[0].name)
     " save the current contents in case of unnamed buffer
     execute 'write ' . l:newFile
@@ -13,5 +13,5 @@ function! notes#CreateNote(fileName) abort
 endfunction
 
 function! notes#OpenNote() abort
-  execute 'e ' . s:FileDir
+  execute 'e ' . g:notes#FileDir
 endfunction
