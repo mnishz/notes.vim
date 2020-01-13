@@ -1,5 +1,10 @@
-let s:DataHome = empty($XDG_DATA_HOME) ? '~/.local/share' : $XDG_DATA_HOME
-let g:notes#FileDir = expand(s:DataHome . '/notes')
+let g:DataHome = '~/.local/share'
+if !empty($XDG_DATA_HOME)
+  let g:DataHome = $XDG_DATA_HOME
+elseif !empty($USERPROFILE)
+  let g:DataHome = substitute($USERPROFILE, '\', '/', 'g') .. '/.local/share'
+endif
+let g:notes#FileDir = expand(g:DataHome . '/notes')
 
 function! notes#CreateNote(fileName, markDown) abort
   if !isdirectory(g:notes#FileDir) | call mkdir(g:notes#FileDir, 'p') | endif
