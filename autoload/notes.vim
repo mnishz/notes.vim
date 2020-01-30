@@ -20,5 +20,8 @@ function! notes#CreateNote(fileName, markDown) abort
 endfunction
 
 function! notes#OpenNote() abort
+  let l:org = exists("g:netrw_sort_direction") ? g:netrw_sort_direction : 'normal'
+  let g:netrw_sort_direction = 'reverse'
   execute 'e ' . g:notes#FileDir
+  let g:netrw_sort_direction = l:org
 endfunction
