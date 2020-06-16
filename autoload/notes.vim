@@ -6,9 +6,10 @@ elseif !empty($USERPROFILE)
 endif
 let g:notes#FileDir = expand(g:DataHome . '/notes')
 
-function! notes#CreateNote(fileName, markDown) abort
-  if !isdirectory(g:notes#FileDir) | call mkdir(g:notes#FileDir, 'p') | endif
-  let l:newFile = g:notes#FileDir . '/' . strftime('%Y%m%d_%H%M%S_') . a:fileName
+function! notes#CreateNote(fileName, markDown = v:false, trash = v:false) abort
+  let l:dir = a:trash ? g:notes#FileDir .. '/trash' : g:notes#FileDir
+  if !isdirectory(l:dir) | call mkdir(l:dir, 'p') | endif
+  let l:newFile = l:dir . '/' . strftime('%Y%m%d_%H%M%S_') . a:fileName
   let l:newFile .= a:markDown ? '.md' : '.txt'
   if empty(getbufinfo('')[0].name)
     " save the current contents in case of unnamed buffer
